@@ -1,0 +1,88 @@
+#nav {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(145, 5, 0);
+    height: 10%;
+}
+
+#nav li a {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+div {
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
+}
+
+.homeDiv {
+    display: grid;
+    height: 600px;
+    grid-template-columns: 40% 20% 40%;
+    grid-template-rows: 10vh 20vh 70vh;
+}
+
+.showImg {
+    width: 50px;
+    height: 37px;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    transition: 0.5s;
+}
+
+.showImg:hover {
+    opacity: 50%;
+    border-color: purple;
+}
+.showImg:not(:hover) {
+    opacity: 100%;
+    border-color: black;
+}
+
+.showItems {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+.divofdivs {
+    height: fit-content;
+}
+
+/* .showImg-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 40%;
+    grid-row: 3;
+}
+
+.pillar {
+    grid-column: 2 / 3;
+    width: auto;
+    height: 90vh;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
+}
+
+.pillar {
+    grid-column: auto;
+}
+
+.showBotImg {
+    grid-column: 3 / 4;
+    overflow-y: auto;
+} */

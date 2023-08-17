@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="homeDiv">
+
+        <div class="showImg-div showYourImg-div divofdivs">
+            <div class="invName">
+
+            </div>
+            <div class="showSelected">
+
+            </div>
+            <div class="showItems">
+                <% for (let i = 0; i < skins.length; i++) { %>
+                    <img class="showImg" src="<%= skins[i].image %>" title="<%= skins[i].name %>">
+                <% } %>
+            </div>
+        </div>
+
+        <div class="pillar divofdivs">
+
+        </div>
+        
+        <div class="showImg-div showBotImg-div divofdivs">
+            <div class="invName">
+
+            </div>
+            <div class="showSelected">
+
+            </div>
+            <div>
+                <img class="showImg" src="<%= skins[1].image %>" title="<%= skins[1].name %>">
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
