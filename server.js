@@ -6,14 +6,10 @@ const itemSchema = require("./models/itemSchema");
 const path = require('path')
 const cacheTime = 86400000 * 30
 const authRoutes = require("./controllers/authController");
-const session = require("express-session");
-const MongoStore = require('connect-mongo')(session);
+// const session = require("express-session");
+const session = require("cookie-session");
 const methodOverride = require("method-override");
 
-app.use(session({
-    secret: "bonk",
-    store: new MongoStore(options)
-}));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
