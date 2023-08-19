@@ -2,7 +2,7 @@ const mongoose = require("../database/connection");
 
 const itemSchema = new mongoose.Schema({
     name: String,
-    rarity: String,
+    rarity: Number,
     img: String,
     description: String
 });

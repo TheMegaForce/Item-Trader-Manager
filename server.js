@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const expressLayouts = require("express-ejs-layouts");
-const Items = require("./models/items");
+const itemSchema = require("./models/itemSchema");
 const path = require('path')
 const cacheTime = 86400000 * 30
 const authRoutes = require("./controllers/authController");
@@ -20,9 +20,6 @@ app.use(express.static(path.join(__dirname, 'public'), {
 app.use(session({ secret: "stringofsomething", cookie: { maxAge: 3600000 } }));
 app.use(authRoutes);
 
-// SEED
-
-
 // AUTH CHECK
 // app.use((req, res, next) => {
 //     if(!req.session.userId) {
@@ -33,10 +30,30 @@ app.use(authRoutes);
 //     next();
 // });
 
+// SEED
+app.get("/seed", async (req, res) => {
+    let seededItems = await itemSchema.create([
+        {
+            name: "Ghostly Gibus",
+            rarity: 1,
+            img: "https://media.steampowered.com/apps/440/icons/ghostly_gibus_demo_large.8ad991f3508316565497b7db83f6151be0ee3933.png",
+            description: "Your first and most precious item"
+        },
+        {
+            name: "Gold Rocket",
+            rarity: 5,
+            img: "https://static.wikia.nocookie.net/teamfortress/images/4/4e/Item_icon_Australium_Rocket_Launcher.png",
+            description: "This weapon is mine"
+        }
+    ]);
+    res.send(seededItems)
+})
+
 // HOME
-app.get("/trade", async (req, res) => {
-    console.log(Items[0].img);
-    res.render("main.ejs", { items: Items })
+app.get("/items", async (req, res) => {
+    let items = await itemSchema.find();
+    console.log(items);
+    res.render("main.ejs", { items })
 });
 
 // NEW
@@ -44,14 +61,18 @@ app.get("/items/new", (req, res) => {
     res.render("new_item.ejs")
 })
 
-// CREATE
-app.post("/items", (req, res) => {
-    let newItem = {}
-    newItem.name = req.body.name
-    newItem.description = req.body.description
-    newItem.rarity = req.body.rarity
-    newItem.img = req.body.img
 
+
+
+// CREATE
+app.post("/items", async (req, res) => {
+    let newItem = await itemSchema.create({
+        name: req.body.name,
+        rarity: req.body.rarity,
+        img: req.body.img,
+        description: req.body.description
+    })
+    res.send(newItem)
 })
 
 // EDIT
