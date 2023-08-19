@@ -16,8 +16,8 @@
 
             </div>
             <div class="showItems">
-                <% for (let i = 0; i < items.length; i++) { %>
-                    <img class="showImg" src="<%= items[i].img %>" title="<%= items[i].name %>">
+                <% for (let i = 0; i < 1; i++) { %>
+                    <img class="showImg" id="<%= items[i]._id %>" src="<%= items[i].img %>" title="<%= items[i].name %>">
                 <% } %>
             </div>
         </div>
@@ -33,11 +33,29 @@
             <div class="showSelected">
 
             </div>
-            <div>
-                <img class="showImg" src="<%= items[0].img %>" title="<%= items[0].name %>">
+            <div class="showItems">
+                <% for (let i = 0; i < items.length; i++) { %>
+                    <img class="showImg" id="<%= items[i]._id %>" src="<%= items[i].img %>" title="<%= items[i].name %>">
+                <% } %>
             </div>
         </div>
 
     </div>
+
+    <div class="context-menu" id="contextMenu">
+        <ul>
+            <li>
+                <a id="viewItemLink">
+                    View Item
+                </a>
+            </li>
+            <li>
+                <a id="editItemLink">
+                    Edit Item
+                </a>
+            </li>
+        </ul>
+    </div>
+
 </body>
 </html>

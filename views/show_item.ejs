@@ -1,0 +1,18 @@
+<div class="container">
+    <img class="showBigImg" src="<%= item.img %>" alt="<%= item.name %>">
+    <h1><%= item.name %></h1>
+    <h2><%= item.description %></h2>
+    <% if (item.rarity == 1) { %>
+        <h3>Rarity: Common</h3>
+    <% } else if(item.rarity == 2) { %>
+        <h3>Rarity: Uncommon</h3>
+    <% } else if(item.rarity == 3) { %>
+        <h3>Rarity: Rare</h3>
+    <% } else if(item.rarity == 4) { %>
+        <h3>Rarity: Legendary</h3>
+    <% } else if(item.rarity == 5) { %>
+        <h3>Rarity: Exotic</h3>
+    <% } %>
+
+    <a href="/items/<%= item._id %>/edit/"><button>Edit <%= item.name %></button></a>
+</div>

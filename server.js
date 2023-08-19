@@ -7,8 +7,10 @@ const path = require('path')
 const cacheTime = 86400000 * 30
 const authRoutes = require("./controllers/authController");
 const session = require("express-session");
+const methodOverride = require("method-override");
 
 
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.use(express.static('public'));
@@ -52,7 +54,6 @@ app.get("/seed", async (req, res) => {
 // HOME
 app.get("/items", async (req, res) => {
     let items = await itemSchema.find();
-    console.log(items);
     res.render("main.ejs", { items })
 });
 
@@ -61,8 +62,12 @@ app.get("/items/new", (req, res) => {
     res.render("new_item.ejs")
 })
 
-
-
+// UPDATE
+app.put("/items/:id", async (req, res) => {
+    let itemToUpdate = await itemSchema.findOneAndUpdate({_id: req.params.id},
+    { name: req.body.name})
+    res.redirect("/items")
+})
 
 // CREATE
 app.post("/items", async (req, res) => {
@@ -76,11 +81,15 @@ app.post("/items", async (req, res) => {
 })
 
 // EDIT
-app.get("/items/:id/edit", (req, res) => {
-    const id = req.params.id
-    const item = 
-    req.render("edit_item.ejs", {})
+app.get("/items/:id/edit", async (req, res) => {
+    let foundItem = await itemSchema.find({_id: req.params.id})
+    res.render("edit_item.ejs", { item: foundItem[0] })
 })
 
+// SHOW
+app.get("/items/:id", async (req, res) => {
+    let foundItem = await itemSchema.find({_id: req.params.id})
+    res.render("show_item.ejs", { item: foundItem[0] })
+});
 
 app.listen(PORT, () => console.log("ON PORT:", PORT));
