@@ -22,15 +22,16 @@ app.use(express.static(path.join(__dirname, 'public'), {
 app.use(session({ secret: "stringofsomething", cookie: { maxAge: 3600000 } }));
 app.use(authRoutes);
 
-// AUTH CHECK
-// app.use((req, res, next) => {
-//     if(!req.session.userId) {
-//         res.redirect("/login")
-//         return
-//     }
 
-//     next();
-// });
+// AUTH CHECK
+app.use((req, res, next) => {
+    if(!req.session.userId) {
+        res.redirect("/login")
+        return
+    }
+
+    next();
+});
 
 // SEED
 app.get("/seed", async (req, res) => {

@@ -20,6 +20,6 @@ function rightClick(e) {
         let viewItem = document.getElementById("viewItemLink")
         viewItem.setAttribute("href", "items/" + e.target.id)
         let editItem = document.getElementById("editItemLink")
-        editItem.setAttribute("href", "items/edit/" + e.target.id)
+        editItem.setAttribute("href", "items/" + e.target.id + "/edit")
     }
 }
