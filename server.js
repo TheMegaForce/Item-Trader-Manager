@@ -6,8 +6,8 @@ const itemSchema = require("./models/itemSchema");
 const path = require('path')
 const cacheTime = 86400000 * 30
 const authRoutes = require("./controllers/authController");
-// const session = require("express-session");
-const session = require("cookie-session");
+const session = require("express-session");
+// const session = require("cookie-session");
 const methodOverride = require("method-override");
 
 app.use(methodOverride("_method"));
@@ -23,15 +23,15 @@ app.use(session({ secret: "stringofsomething", cookie: { maxAge: 3600000 } }));
 app.use(authRoutes);
 
 
-// AUTH CHECK
-app.use((req, res, next) => {
-    if(!req.session.userId) {
-        res.redirect("/login")
-        return
-    }
+// // AUTH CHECK
+// app.use((req, res, next) => {
+//     if(!req.session.userId) {
+//         res.redirect("/login")
+//         return
+//     }
 
-    next();
-});
+//     next();
+// });
 
 // SEED
 app.get("/seed", async (req, res) => {
@@ -63,6 +63,12 @@ app.get("/items/new", (req, res) => {
     res.render("new_item.ejs")
 })
 
+// DELETE
+app.delete("/items/:id", async (req, res) => {
+    let itemToDelete = await itemSchema.deleteOne({_id: req.params.id})
+    res.redirect("/items")
+})
+
 // UPDATE
 app.put("/items/:id", async (req, res) => {
     let itemToUpdate = await itemSchema.findOneAndUpdate({_id: req.params.id},
@@ -78,7 +84,7 @@ app.post("/items", async (req, res) => {
         img: req.body.img,
         description: req.body.description
     })
-    res.send(newItem)
+    res.redirect(`/items/${newItem._id}`)
 })
 
 // EDIT

@@ -89,3 +89,16 @@ div {
 .context-menu ul li:hover {
     background: darkgray;
 }
+
+.split-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.split-container img {
+    grid-column: 1;
+}
+
+.split-container:not(img) {
+    grid-column: 2;
+}

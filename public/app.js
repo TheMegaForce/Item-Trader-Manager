@@ -8,9 +8,8 @@ function hideMenu() {
 
 function rightClick(e) {
     e.preventDefault();
-
-    if (document.getElementById(
-        "contextMenu").style.display == "block")
+    
+    if (document.getElementById("contextMenu").style.display == "block")
         hideMenu();
     else {
         var menu = document.getElementById("contextMenu")
@@ -21,5 +20,7 @@ function rightClick(e) {
         viewItem.setAttribute("href", "items/" + e.target.id)
         let editItem = document.getElementById("editItemLink")
         editItem.setAttribute("href", "items/" + e.target.id + "/edit")
+        let newItem = document.getElementById("newItemLink")
+        newItem.setAttribute("href", "items/new")
     }
 }
