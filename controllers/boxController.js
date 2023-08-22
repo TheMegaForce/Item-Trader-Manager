@@ -15,12 +15,17 @@ router.get("/lootbox/founditem", async (req, res) => {
     let randomItem = await itemSchema.findOne().skip(random)
 
     const foundInv = await invSchema.findOne({userId: req.session.userId})
-    .populate("userId")
-    .populate("items")
+    // .populate("userId")
+    // .populate("items")
 
-    foundInv.items.push(randomItem)
+    
+    foundInv.items.push(randomItem.id)
+    await foundInv.save()
+    
+    console.log(foundInv.items);
+    
 
-    res.json(randomItem);
+    res.redirect(`/items/${randomItem.id}`);
 })
 
 

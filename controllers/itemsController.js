@@ -11,11 +11,14 @@ router.get("/items", async (req, res) => {
     .populate("items")
     let items = await itemSchema.find();
     let sessionId = req.session.userId
-    if (inv.userId.id == req.session.id) {
+
+    // if (inv.userId.id == req.session.id) {
         
-    }
+    // }
     
-    console.log(inv.userId.id);
+    // console.log(inv.userId.id);
+    
+    
     res.render("main.ejs", { items, inv, sessionId })
 });
 
