@@ -3,9 +3,13 @@ const app = express();
 const PORT = 3000;
 const expressLayouts = require("express-ejs-layouts");
 const itemSchema = require("./models/itemSchema");
+const invSchema = require("./models/inventorySchema")
 const path = require('path')
 const cacheTime = 86400000 * 30
 const authRoutes = require("./controllers/authController");
+const itemsRoutes = require("./controllers/itemsController")
+const boxRoutes = require("./controllers/boxController")
+const invRoutes = require("./controllers/invController")
 const session = require("express-session");
 // const session = require("cookie-session");
 const methodOverride = require("method-override");
@@ -20,20 +24,12 @@ app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: cacheTime
 }))
 app.use(session({ secret: "stringofsomething", cookie: { maxAge: 3600000 } }));
+
+
 app.use(authRoutes);
 
-
-// // AUTH CHECK
-// app.use((req, res, next) => {
-//     if(!req.session.userId) {
-//         res.redirect("/login")
-//         return
-//     }
-
-//     next();
-// });
-
 // SEED
+// DO FIRST -----------------------------------------
 app.get("/seed", async (req, res) => {
     let seededItems = await itemSchema.create([
         {
@@ -47,56 +43,32 @@ app.get("/seed", async (req, res) => {
             rarity: 5,
             img: "https://static.wikia.nocookie.net/teamfortress/images/4/4e/Item_icon_Australium_Rocket_Launcher.png",
             description: "This weapon is mine"
+        },
+        {
+            name: "Burning Flames Team Captain",
+            rarity: 6,
+            img: "https://steamuserimages-a.akamaihd.net/ugc/3299195982091997493/77DA5D5C71D99DD81C560FF3581EF4B4D7008B5C/",
+            description: "Your head is on fire..."
         }
     ]);
     res.send(seededItems)
 })
 
-// HOME
-app.get("/items", async (req, res) => {
-    let items = await itemSchema.find();
-    res.render("main.ejs", { items })
+// AUTH CHECK
+app.use((req, res, next) => {
+    if(!req.session.userId) {
+        res.redirect("/login")
+        return
+    }
+
+    next();
 });
 
-// NEW
-app.get("/items/new", (req, res) => {
-    res.render("new_item.ejs")
-})
+app.use(itemsRoutes)
 
-// DELETE
-app.delete("/items/:id", async (req, res) => {
-    let itemToDelete = await itemSchema.deleteOne({_id: req.params.id})
-    res.redirect("/items")
-})
+app.use(invRoutes)
 
-// UPDATE
-app.put("/items/:id", async (req, res) => {
-    let itemToUpdate = await itemSchema.findOneAndUpdate({_id: req.params.id},
-    { name: req.body.name})
-    res.redirect("/items")
-})
+app.use(boxRoutes)
 
-// CREATE
-app.post("/items", async (req, res) => {
-    let newItem = await itemSchema.create({
-        name: req.body.name,
-        rarity: req.body.rarity,
-        img: req.body.img,
-        description: req.body.description
-    })
-    res.redirect(`/items/${newItem._id}`)
-})
-
-// EDIT
-app.get("/items/:id/edit", async (req, res) => {
-    let foundItem = await itemSchema.find({_id: req.params.id})
-    res.render("edit_item.ejs", { item: foundItem[0] })
-})
-
-// SHOW
-app.get("/items/:id", async (req, res) => {
-    let foundItem = await itemSchema.find({_id: req.params.id})
-    res.render("show_item.ejs", { item: foundItem[0] })
-});
 
 app.listen(PORT, () => console.log("ON PORT:", PORT));

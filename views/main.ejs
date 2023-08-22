@@ -16,8 +16,12 @@
 
             </div>
             <div class="showItems">
-                <% for (let i = 0; i < 1; i++) { %>
-                    <img class="showImg" id="<%= items[i]._id %>" src="<%= items[i].img %>" title="<%= items[i].name %>">
+                <% if (inv.userId.id == sessionId) { %>
+                    <% for (let i = 0; i < inv.items.length; i++) { %>
+                        <img class="showImg" id="<%= inv.items[i]._id %>" src="<%= inv.items[i].img %>" title="<%= inv.items[i].name %>">
+                    <% } %>
+                <% } else { %>
+                    <a href="/inventory/seed"><h1>Create an Inventory!</h1></a>
                 <% } %>
             </div>
         </div>

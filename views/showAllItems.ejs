@@ -1,0 +1,6 @@
+<div>
+    <h1><%= inv.userId.name %>'s Inventory</h1>
+    <% inv.items.forEach(item => { %>
+        <img class="showImg" id="<%= item._id %>" src="<%= item.img %>" title="<%= item.name %>">
+    <% }); %>
+</div>

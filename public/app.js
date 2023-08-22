@@ -16,10 +16,12 @@ function rightClick(e) {
         menu.style.display = 'block';
         menu.style.left = e.pageX + "px";
         menu.style.top = e.pageY + "px";
-        let viewItem = document.getElementById("viewItemLink")
-        viewItem.setAttribute("href", "items/" + e.target.id)
-        let editItem = document.getElementById("editItemLink")
-        editItem.setAttribute("href", "items/" + e.target.id + "/edit")
+        if (e.target.id) {
+            let viewItem = document.getElementById("viewItemLink")
+            viewItem.setAttribute("href", "items/" + e.target.id)
+            let editItem = document.getElementById("editItemLink")
+            editItem.setAttribute("href", "items/" + e.target.id + "/edit")
+        }
         let newItem = document.getElementById("newItemLink")
         newItem.setAttribute("href", "items/new")
     }
