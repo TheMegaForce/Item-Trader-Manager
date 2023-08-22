@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&family=Signika&display=swap');
+
+body {
+    font-family: 'Dosis', sans-serif;
+}
+
 #nav {
     display: flex;
     justify-content: space-around;

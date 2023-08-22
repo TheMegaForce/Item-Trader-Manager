@@ -70,5 +70,8 @@ app.use(invRoutes)
 
 app.use(boxRoutes)
 
+app.get("/", (req, res) => {
+    res.redirect("/items")
+})
 
 app.listen(PORT, () => console.log("ON PORT:", PORT));
