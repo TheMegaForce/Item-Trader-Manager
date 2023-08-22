@@ -5,7 +5,7 @@ const invSchema = require("../models/inventorySchema");
 
 
 router.get("/lootbox", (req, res) => {
-    res.render("show_lootbox.ejs")
+    res.render("lootbox/show_lootbox.ejs")
 })
 
 router.get("/lootbox/founditem", async (req, res) => {
@@ -21,8 +21,6 @@ router.get("/lootbox/founditem", async (req, res) => {
     
     foundInv.items.push(randomItem.id)
     await foundInv.save()
-    
-    console.log(foundInv.items);
     
 
     res.redirect(`/items/${randomItem.id}`);

@@ -11,7 +11,7 @@ router.get("/items", async (req, res) => {
     .populate("items")
     let items = await itemSchema.find();
     let sessionId = req.session.userId
-
+    let sessionName = req.session.name;
     // if (inv.userId.id == req.session.id) {
         
     // }
@@ -19,7 +19,7 @@ router.get("/items", async (req, res) => {
     // console.log(inv.userId.id);
     
     
-    res.render("main.ejs", { items, inv, sessionId })
+    res.render("main.ejs", { items, inv, sessionId, sessionName })
 });
 
 // NEW

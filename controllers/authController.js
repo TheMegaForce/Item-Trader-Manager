@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/signup', (req, res) => {
-    res.render('auth/signup.ejs');
+    res.redirect('/login');
 });
 
 router.get("/logout", (req, res) => {
